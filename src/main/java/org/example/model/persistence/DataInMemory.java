@@ -82,4 +82,8 @@ public class DataInMemory {
             account.get().addTransaction(transaction);
         }
     }
+
+    public Double getBalanceByAccount(Account account){
+        return account.getBalance();
+    }
 }
