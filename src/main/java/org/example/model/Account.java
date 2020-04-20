@@ -7,13 +7,11 @@ public class Account {
     private int id;
     private String ownerId;
     private List<Transaction> transactions;
-    private double balance;
 
     public Account(int id, String ownerId) {
         this.id = id;
         this.ownerId = ownerId;
         transactions = new ArrayList<>();
-        balance = 0.0;
     }
 
     public int getId() {
@@ -29,9 +27,14 @@ public class Account {
     }
 
     public double getBalance() {
-        for (Transaction transaction: transactions) {
-            balance = balance + transaction.getAmount();
+        double balanceTotal = 0.0;
+        for (Transaction tr : transactions) {
+            balanceTotal += tr.amount;
         }
-        return balance;
+        return balanceTotal;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 }

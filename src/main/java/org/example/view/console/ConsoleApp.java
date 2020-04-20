@@ -1,12 +1,12 @@
 package org.example.view.console;
 
-import org.example.controller.BalanceController;
-import org.example.controller.BankAccountController;
-import org.example.controller.ControllerManager;
-import org.example.controller.OwnerController;
+import org.example.controller.*;
+import org.example.controller.operators.WithdrawOperator;
 import org.example.controller.providers.AccountBalanceProvider;
 import org.example.model.Account;
+import org.example.model.Transaction;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +15,7 @@ public class ConsoleApp {
     private BankAccountController depositController;
     private OwnerController ownerController;
     private BalanceController balanceProvider;
+    private TransactionController transactionController;
 
     public static void main(String[] args) {
         new ConsoleApp().run();
@@ -26,6 +27,7 @@ public class ConsoleApp {
         depositController = controllerManager.getDepositController();
         ownerController = controllerManager.getOwnerController();
         balanceProvider = controllerManager.getBalanceController();
+        transactionController = controllerManager.getTransactionProvider();
 
     }
 
@@ -90,6 +92,9 @@ public class ConsoleApp {
                     case 'D':
                         deposit(scanner, accountId);
                         break;
+                    case 'T':
+                        myTransaction(accountId);
+                        break;
                     default:
                         print(option + " is an invalid option");
                         break;
@@ -113,7 +118,7 @@ public class ConsoleApp {
         System.out.print("Enter amount you need to withdraw: ");
         double amount = scanner.nextDouble();
         bankAccountController.withdraw(accountId, amount);
-        if(bankAccountController.equals(false)) {
+        if(balanceProvider.getBalanceByOwner(accountId) < amount) {
             System.out.println("You do not have amount enough to do the transaction");
         }else System.out.println("successful withdraw operation");
     }
@@ -126,6 +131,13 @@ public class ConsoleApp {
     }
 
     private void myBalance(int accountId){
-        System.out.println("Your balance is: " + balanceProvider.getBalanceByOwner(accountId));
+        double balance = balanceProvider.getBalanceByOwner(accountId);
+        System.out.println("Your balance is: " + balance);
+    }
+
+    private void myTransaction(int accountId){
+        Transaction transaction = transactionController.getTransactionProvider(accountId);
+        System.out.println("Your transactions:");
+        System.out.println(transaction);
     }
 }

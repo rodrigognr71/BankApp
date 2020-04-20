@@ -4,12 +4,13 @@ import org.example.controller.operators.DepositOperator;
 import org.example.controller.operators.WithdrawOperator;
 import org.example.controller.providers.AccountBalanceProvider;
 import org.example.controller.providers.AccountsByOwnerProvider;
+import org.example.controller.providers.TransactionProvider;
 import org.example.model.persistence.DataSaverInMemory;
 
 public class ControllerManager {
 
     public BankAccountController getAccountController() {
-        return new BankAccountController(new WithdrawOperator(new DataSaverInMemory()), null);
+        return new BankAccountController(new WithdrawOperator(new DataSaverInMemory(), new AccountBalanceProvider(new DataSaverInMemory())), null);
     }
 
     public BankAccountController getDepositController() {
@@ -22,5 +23,9 @@ public class ControllerManager {
 
     public BalanceController getBalanceController() {
         return new BalanceController(new AccountBalanceProvider(new DataSaverInMemory()));
+    }
+
+    public TransactionController getTransactionProvider(){
+        return new TransactionController(new TransactionProvider(new DataSaverInMemory()));
     }
 }

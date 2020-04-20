@@ -33,14 +33,14 @@ public class DataInMemory {
         owner1.addAccount(account1);
         accounts.add(account1);
 
-        // Populate Transactions
+   /*     // Populate Transactions
         Transaction transaction1 = new Transaction(TransactionType.DEPOSIT, 10000.0, account1.getId());
         transactions.add(transaction1);
         account1.addTransaction(transaction1);
 
         Transaction transaction2 = new Transaction(TransactionType.WITHDRAW, 50.0, account1.getId());
         transactions.add(transaction2);
-        account1.addTransaction(transaction2);
+        account1.addTransaction(transaction2);*/
     }
 
     public static DataInMemory getInstance() {

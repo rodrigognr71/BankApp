@@ -6,7 +6,7 @@ import java.util.Random;
 public class Transaction {
     private final int id;
     private final int accountId;
-    private final double amount;
+    public final double amount;
     private final LocalDateTime dateTime;
     private final TransactionType type;
 
